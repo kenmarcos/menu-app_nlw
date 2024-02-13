@@ -1,7 +1,8 @@
 import { CategoryButton } from "@/components/categoryButton";
 import { Header } from "@/components/header";
 import { ProductCard } from "@/components/productCard";
-import { CATEGORIES, MENU, PRODUCTS } from "@/utils/data/products";
+import { CATEGORIES, MENU } from "@/utils/data/products";
+import { Link } from "expo-router";
 import { useState } from "react";
 import { FlatList, SectionList, Text, View } from "react-native";
 
@@ -13,7 +14,7 @@ const Home = () => {
   };
 
   return (
-    <View className="flex-1 pt-8">
+    <View className="flex-1">
       <Header title="Faça seu pedido" />
 
       <FlatList
@@ -40,9 +41,9 @@ const Home = () => {
           </Text>
         )}
         renderItem={({ item }) => (
-          <View className="mb-4">
+          <Link asChild href={`/product/${item.id}`} className="mb-4">
             <ProductCard product={item} />
-          </View>
+          </Link>
         )}
         stickySectionHeadersEnabled={false}
         showsVerticalScrollIndicator={false}
