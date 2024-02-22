@@ -2,13 +2,15 @@ import { CategoryButton } from "@/components/category-button";
 import { Header } from "@/components/header";
 import { ProductCard } from "@/components/product-card";
 import { useCartStore } from "@/stores/cart-store";
-import { CATEGORIES, MENU } from "@/utils/data/products";
+import { CATEGORIES, MENU, ProductProps } from "@/utils/data/products";
 import { Link } from "expo-router";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { FlatList, SectionList, Text, View } from "react-native";
 
 const Home = () => {
   const [selectedCategory, setSelectedCategory] = useState(CATEGORIES[0]);
+
+  const sectionListRef = useRef<SectionList<ProductProps>>(null);
 
   const cartStore = useCartStore();
 
@@ -16,8 +18,20 @@ const Home = () => {
     return acc + cartProduct.quantity;
   }, 0);
 
-  const handleCategorySelection = (category: string) => {
-    setSelectedCategory(category);
+  const handleCategorySelection = (selectedCategory: string) => {
+    setSelectedCategory(selectedCategory);
+
+    const sectionIndex = CATEGORIES.findIndex(
+      (category) => category === selectedCategory
+    );
+
+    if (sectionListRef.current) {
+      sectionListRef.current.scrollToLocation({
+        sectionIndex,
+        itemIndex: 0,
+        animated: true,
+      });
+    }
   };
 
   return (
@@ -40,6 +54,7 @@ const Home = () => {
       />
 
       <SectionList
+        ref={sectionListRef}
         sections={MENU}
         keyExtractor={(item) => item.id}
         renderSectionHeader={({ section: { title } }) => (
