@@ -4,7 +4,7 @@ import { useCartStore } from "@/stores/cart-store";
 import { PRODUCTS } from "@/utils/data/products";
 import { formatCurrency } from "@/utils/functions/format-currency";
 import { Feather } from "@expo/vector-icons";
-import { Redirect, useLocalSearchParams } from "expo-router";
+import { Redirect, useLocalSearchParams, router } from "expo-router";
 import { Alert, Image, ScrollView, Text, View } from "react-native";
 
 const ProductPage = () => {
@@ -20,7 +20,15 @@ const ProductPage = () => {
 
   const handleProductAddition = () => {
     cartStore.add(product);
-    Alert.alert("Carrinho", "O produto foi adicionado ao carrinho");
+
+    Alert.alert(
+      "Carrinho",
+      `Um item do produto ${product.title} foi adicionado ao carrinho`,
+      [
+        { text: "Continuar compra" },
+        { text: "Ver carrinho", onPress: () => router.navigate("/cart") },
+      ]
+    );
   };
 
   return (

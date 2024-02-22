@@ -27,3 +27,21 @@ export const add = (products: ProductCartProps[], newProduct: ProductProps) => {
     },
   ];
 };
+
+export const remove = (
+  products: ProductCartProps[],
+  removedProductId: string
+) => {
+  const updatedProducts = products.map((product) => {
+    if (product.id === removedProductId) {
+      return {
+        ...product,
+        quantity: product.quantity - 1,
+      };
+    }
+
+    return product;
+  });
+
+  return updatedProducts.filter((product) => product.quantity > 0);
+};
