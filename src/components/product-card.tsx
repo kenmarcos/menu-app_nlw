@@ -26,9 +26,17 @@ export const ProductCard = forwardRef<TouchableOpacity, ProductCardProps>(
         <Image source={product.thumbnail} className="w-20 h-20 rounded-md" />
 
         <View className="flex-1">
-          <Text className="text-slate-100 font-subtitle text-base flex-1">
-            {product.title}
-          </Text>
+          <View className="flex-row items-center">
+            <Text className="text-slate-100 font-subtitle text-base flex-1">
+              {product.title}
+            </Text>
+
+            {product.quantity && (
+              <Text className="text-slate-100 text-xs">
+                x {product.quantity}
+              </Text>
+            )}
+          </View>
 
           <Text className="text-slate-400 text-xs" numberOfLines={2}>
             {product.description}
