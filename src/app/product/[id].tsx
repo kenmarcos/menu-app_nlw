@@ -31,7 +31,7 @@ const ProductPage = () => {
         resizeMode="cover"
       />
 
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <ScrollView>
         <View className="p-5 flex-1">
           <Text className="text-white text-xl font-heading">
             {product.title}
@@ -54,18 +54,18 @@ const ProductPage = () => {
             </Text>
           ))}
         </View>
-
-        <View className="p-5 gap-3">
-          <Button onPress={handleProductAddition}>
-            <Button.Icon>
-              <Feather name="plus-circle" size={20} />
-            </Button.Icon>
-            <Button.Text>Adicionar ao pedido</Button.Text>
-          </Button>
-
-          <LinkButton href="/" title="Voltar ao cardápio" />
-        </View>
       </ScrollView>
+
+      <View className="p-5 gap-3 bg-slate-800">
+        <Button onPress={handleProductAddition}>
+          <Button.Icon>
+            <Feather name="plus-circle" size={20} />
+          </Button.Icon>
+          <Button.Text>Adicionar ao pedido</Button.Text>
+        </Button>
+
+        <LinkButton href="/" title="Voltar ao cardápio" />
+      </View>
     </View>
   );
 };

@@ -20,31 +20,31 @@ const Cart = () => {
 
       <ScrollView className="px-5">
         {cartStore.products.length > 0 && (
-          <View className="border-b border-b-slate-700 py-5 space-y-1">
+          <View className="py-5 border-b border-b-slate-700 space-y-1">
             {cartStore.products.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </View>
         )}
 
-        <View className="flex-row items-center justify-between pt-5">
+        <View className="py-5 flex-row items-center justify-between">
           <Text className="text-white text-xl font-subtitle">Total:</Text>
           <Text className="text-lime-400 text-2xl font-heading">
             {formatCurrency(totalPrice)}
           </Text>
         </View>
-
-        <View className="pt-5 gap-3">
-          <Button>
-            <Button.Text>Enviar pedido</Button.Text>
-            <Button.Icon>
-              <Feather name="arrow-right-circle" size={24} />
-            </Button.Icon>
-          </Button>
-
-          <LinkButton href="/" title="Voltar para o menu" />
-        </View>
       </ScrollView>
+
+      <View className="p-5 gap-3 bg-slate-800">
+        <Button>
+          <Button.Text>Enviar pedido</Button.Text>
+          <Button.Icon>
+            <Feather name="arrow-right-circle" size={24} />
+          </Button.Icon>
+        </Button>
+
+        <LinkButton href="/" title="Voltar para o menu" />
+      </View>
     </View>
   );
 };
