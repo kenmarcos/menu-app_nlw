@@ -65,46 +65,60 @@ const Cart = () => {
     <View className="flex-1">
       <Header title="Seu carrinho" />
 
-      <KeyboardAwareScrollView>
-        <ScrollView className="px-5">
-          {cartStore.products.length > 0 && (
-            <View className="py-5 border-b border-b-slate-700 space-y-1">
-              {cartStore.products.map((product) => (
-                <ProductCard
-                  key={product.id}
-                  product={product}
-                  onPress={() => handleProductRemoval(product)}
+      {cartStore.products.length === 0 && (
+        <View className="flex-1 items-center justify-center">
+          <Text className="text-white text-base font-subtitle text-center py-5">
+            Seu carrinho esta vazio
+          </Text>
+
+          <LinkButton href="/" title="Voltar para o menu" />
+        </View>
+      )}
+
+      {cartStore.products.length > 0 && (
+        <>
+          <KeyboardAwareScrollView>
+            <ScrollView className="px-5">
+              {cartStore.products.length > 0 && (
+                <View className="py-5 border-b border-b-slate-700 space-y-1">
+                  {cartStore.products.map((product) => (
+                    <ProductCard
+                      key={product.id}
+                      product={product}
+                      onPress={() => handleProductRemoval(product)}
+                    />
+                  ))}
+                </View>
+              )}
+
+              <View className="py-5 flex-row items-center justify-between">
+                <Text className="text-white text-xl font-subtitle">Total:</Text>
+                <Text className="text-lime-400 text-2xl font-heading">
+                  {formatCurrency(totalPrice)}
+                </Text>
+              </View>
+
+              <View className="mb-10">
+                <Input
+                  onChangeText={setAddress}
+                  placeholder="Informe o endereço de entrega com rua, bairro, CEP, número e complemento..."
                 />
-              ))}
-            </View>
-          )}
+              </View>
+            </ScrollView>
+          </KeyboardAwareScrollView>
 
-          <View className="py-5 flex-row items-center justify-between">
-            <Text className="text-white text-xl font-subtitle">Total:</Text>
-            <Text className="text-lime-400 text-2xl font-heading">
-              {formatCurrency(totalPrice)}
-            </Text>
+          <View className="p-5 gap-3 bg-slate-800">
+            <Button onPress={handleOrderSending}>
+              <Button.Text>Enviar pedido</Button.Text>
+              <Button.Icon>
+                <Feather name="arrow-right-circle" size={24} />
+              </Button.Icon>
+            </Button>
+
+            <LinkButton href="/" title="Voltar para o menu" />
           </View>
-
-          <View className="mb-10">
-            <Input
-              onChangeText={setAddress}
-              placeholder="Informe o endereço de entrega com rua, bairro, CEP, número e complemento..."
-            />
-          </View>
-        </ScrollView>
-      </KeyboardAwareScrollView>
-
-      <View className="p-5 gap-3 bg-slate-800">
-        <Button onPress={handleOrderSending}>
-          <Button.Text>Enviar pedido</Button.Text>
-          <Button.Icon>
-            <Feather name="arrow-right-circle" size={24} />
-          </Button.Icon>
-        </Button>
-
-        <LinkButton href="/" title="Voltar para o menu" />
-      </View>
+        </>
+      )}
     </View>
   );
 };
